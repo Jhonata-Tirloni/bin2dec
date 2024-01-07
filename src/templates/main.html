@@ -30,7 +30,33 @@
         </div>
     </section>
     <script>
+        const convertButton = document.getElementById('convert-button');
+        const convertResult = document.getElementById('convert-result');
+        let formulaApplied = [];
 
+        convertButton.addEventListener('click', ()=>{
+            convertResult.value = ''
+            const arrayInput = document.getElementById('array-input').value;
+            const arrayValues = Array.from(arrayInput).map(caractere => parseInt(caractere, 10));
+            
+            for(const x of arrayValues){
+                if(isNaN(x)){
+                    alert("Erro: Contem caracteres nos digitos. Favor rever o valor digitado.")
+
+                    break;
+                }else continue;
+            };
+
+            for(const [indice, valor] of arrayValues.entries()){
+                aux = valor*2**indice
+
+                formulaApplied.push(aux);
+            };
+
+            convertResult.value = formulaApplied.reduce((acumulador, valor) => acumulador+valor, 0);
+            
+            formulaApplied.length = 0
+        });
     </script>
 </body>
 </html>
