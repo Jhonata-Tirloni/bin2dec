@@ -19,9 +19,9 @@
                     <div class="column is-two-fifths has-text-centered">
                         <p class="has-text-centered">Digite a numeracão binária que deseja converter no campo abaixo, depois clique no botão.</p>
                         <div class="box" style="background-color: snow;">
-                            <input class="input" type="text" placeholder="Insira os digitos binários" style="margin-top: 1rem; margin-bottom: 1rem;">
-                            <button class="button is-primary is-outlined">Converter para decimal</button>
-                            <textarea disabled class="textarea is-link" placeholder="Resultado da conversão" type="text" style="margin-top: 1rem; margin-bottom: 1rem; resize: none;"></textarea>
+                            <input id="array-input" class="input" type="text" placeholder="Insira os digitos binários" style="margin-top: 1rem; margin-bottom: 1rem;">
+                            <button id="convert-button" class="button is-primary is-outlined">Converter para decimal</button>
+                            <textarea id="convert-result" disabled class="textarea is-link" placeholder="Resultado da conversão" type="text" style="margin-top: 1rem; margin-bottom: 1rem; resize: none;"></textarea>
                         </div>
                     </div>
                     <div class="column"></div>
@@ -29,5 +29,34 @@
             </div>
         </div>
     </section>
+    <script>
+        const convertButton = document.getElementById('convert-button');
+        const convertResult = document.getElementById('convert-result');
+        let formulaApplied = [];
+
+        convertButton.addEventListener('click', ()=>{
+            convertResult.value = ''
+            const arrayInput = document.getElementById('array-input').value;
+            const arrayValues = Array.from(arrayInput).map(caractere => parseInt(caractere, 10));
+            
+            for(const x of arrayValues){
+                if(isNaN(x)){
+                    alert("Erro: Contem caracteres nos digitos. Favor rever o valor digitado.")
+
+                    break;
+                }else continue;
+            };
+
+            for(const [indice, valor] of arrayValues.entries()){
+                aux = valor*2**indice
+
+                formulaApplied.push(aux);
+            };
+
+            convertResult.value = formulaApplied.reduce((acumulador, valor) => acumulador+valor, 0);
+            
+            formulaApplied.length = 0
+        });
+    </script>
 </body>
 </html>
